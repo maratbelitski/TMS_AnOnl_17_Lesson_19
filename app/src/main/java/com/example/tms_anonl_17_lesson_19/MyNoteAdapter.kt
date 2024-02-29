@@ -34,10 +34,10 @@ class MyNoteAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return when (viewType) {
-            FAVORITE -> MyNoteViewHolder.from(parent, viewType)
-            NO_FAVORITE -> MyNoteViewHolder.from(parent, viewType)
+            FAVORITE -> MyFavoriteHolder.from(parent)
+            NO_FAVORITE -> MyNotFavoriteHolder.from(parent)
             IS_GROUP -> MyGroupViewHolder.from(parent)
-            else -> throw IllegalStateException()
+            else -> throw IllegalStateException(" Problem in onCreateViewHolder")
         }
     }
 
@@ -46,11 +46,11 @@ class MyNoteAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = listItems[position]
 
-        if (item is Note && holder is MyNoteViewHolder) {
+        if (item is Note && holder is MyFavoriteHolder) {
             holder.bind(item, onNoteClick, onNoteLongClick)
-        }
-
-        if (item is Group && holder is MyGroupViewHolder) {
+        } else if (item is Note && holder is MyNotFavoriteHolder) {
+            holder.bind(item, onNoteClick, onNoteLongClick)
+        } else if (item is Group && holder is MyGroupViewHolder) {
             holder.bind(item, onGroupClick)
         }
     }

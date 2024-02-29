@@ -6,17 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MyNoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MyFavoriteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     companion object {
-        private const val FAVORITE = 1
-        fun from(parent: ViewGroup, viewType: Int): MyNoteViewHolder {
+        fun from(parent: ViewGroup): MyFavoriteHolder {
 
-            val layout = when (viewType) {
-                FAVORITE -> R.layout.note_item_favorite
-                else -> R.layout.note_item
-            }
-            return MyNoteViewHolder(
-                LayoutInflater.from(parent.context).inflate(layout, parent, false)
+            return MyFavoriteHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.note_item_favorite, parent, false)
             )
         }
     }
